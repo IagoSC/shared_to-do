@@ -2,7 +2,7 @@
 FROM node:latest
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/app
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -13,11 +13,8 @@ RUN yarn install
 # Copy the rest of the application code
 COPY . .
 
-# Build the TypeScript code
-RUN yarn run build
-
 # Expose the desired port
 EXPOSE 8080
 
 # Start the application
-CMD ["yarn", "start"]
+CMD ["yarn", "run", "dev"]
