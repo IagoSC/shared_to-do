@@ -13,14 +13,14 @@ app.get("/test", (_req: Request, res: Response) => {
 
 app.use("/task", TaskRouter);
 
-app.use((err: Error, _req: Request, res: Response) => {
+app.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
   let statusCode = 500;
   if (err instanceof AppError) statusCode = err.statusCode;
 
   return res.status(statusCode).json({ message: err.message });
 });
 
-app.listen(config.HTTP_PORT, "localhost", () => {
+app.listen(config.HTTP_PORT, () => {
   console.log("App started");
   console.log("Listening to port: ", config.HTTP_PORT);
 });
