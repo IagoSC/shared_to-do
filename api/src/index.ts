@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { TaskRouter } from "./routes/task.routes";
 import { AppError } from "./utils/appError";
+import { config } from "./config";
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use((err: Error, _req: Request, res: Response) => {
   return res.status(statusCode).json({ message: err.message });
 });
 
-app.listen(8080, "localhost", () => {
+app.listen(config.HTTP_PORT, "localhost", () => {
   console.log("App started");
+  console.log("Listening to port: ", config.HTTP_PORT);
 });
