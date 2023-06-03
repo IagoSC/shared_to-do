@@ -7,18 +7,17 @@ services:
     restart: unless-stopped
     ports: 
       - 5432:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=api-server
+    env_file:
+        - database.env 
     volumes:
       - pgdata:/data/postgres
   
   app:
     build: .
     container_name: dev_app
-    environment:
-      - HTTP_PORT=8080
+    env_file:
+      - database.env 
+      - api-dev.env
     ports: 
       - 8080:8080
     volumes:

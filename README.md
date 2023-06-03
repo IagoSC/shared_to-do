@@ -3,8 +3,7 @@ A college project to exercise development and deployment of a real application
 
 
 ## Some questions
-- If we define a CMD in a container that starts a server, but we added more dependencies so this command can work, how does the container install the dependencies if the install command is defined in lower layers of the dockerfile?
-- If we this same command failes, how do we fix this failure when we have no access to the container?
+- If we define a CMD in a container that starts a server, started the container and failed, then added more dependencies so this command can work, how does the container install the dependencies if the install command is defined in lower layers of the dockerfile? how do we fix this failure when we have no access to the container?
 
 ## TODO 
 - [x] Expose port from container 
