@@ -13,9 +13,10 @@ A college project to exercise development and deployment of a real application
 - [] Research on security of above
 - [x] Set run dev command
 - [x] Install orm
-- [] Create first table (Tasks)
-- [] Move logic to DB
-- [] Move logic to DB
+- [] Set typeorm script to use database.env
+- [x] Create first table (Tasks)
+- [x] Move logic to DB
+- [] Change getAll to getMy tasks
 - [] Create Users table
 - [] Create authorization logic
 - [] Create authentication logic

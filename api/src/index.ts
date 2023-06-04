@@ -17,6 +17,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   let statusCode = 500;
   if (err instanceof AppError) statusCode = err.statusCode;
 
+  console.debug(err);
   return res.status(statusCode).json({ message: err.message });
 });
 

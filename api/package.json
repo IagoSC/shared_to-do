@@ -3,16 +3,21 @@
   "version": "1.0.0",
   "description": "A Node.js project using TypeScript, ts-node, TypeORM, and Express",
   "scripts": {
+    "typeorm": "typeorm-ts-node-esm -d src/database/index.ts",
     "predev": "yarn install",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/index.ts"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "typeorm": "^0.3.16"
+    "pg": "^8.11.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.16",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.2.5",
+    "@types/uuid": "^9.0.1",
     "ts-node-dev": "*",
     "typescript": "*"
   },
