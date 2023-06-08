@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -28,5 +28,10 @@ export class User {
   created_at!: Date;
 
   @ManyToMany(() => TaskGroup, (taskGroup) => taskGroup.users)
+  @JoinTable({
+    name: "users_task_groups",
+    inverseJoinColumn: { name: "task_group_id", referencedColumnName: "id" },
+    joinColumn: { name: "user_id", referencedColumnName: "id" },
+  })
   taskGroups?: TaskGroup[];
 }

@@ -5,7 +5,7 @@ import { User } from "../../database/entities/User.entity";
 export interface CreateTaskGroupDTO {
   name: string;
   users: User[];
-  isPrivate?: boolean;
+  isDefault?: boolean;
   description: string;
 }
 
@@ -15,10 +15,10 @@ export class CreateTaskGroupService {
   async execute({
     name,
     users,
-    isPrivate,
+    isDefault,
     description,
   }: CreateTaskGroupDTO): Promise<TaskGroup> {
-    const taskGroup = new TaskGroup({ name, description, isPrivate, users });
+    const taskGroup = new TaskGroup({ name, description, isDefault, users });
     const result = await this.taskGroupRepository.save(taskGroup);
     return taskGroup;
   }

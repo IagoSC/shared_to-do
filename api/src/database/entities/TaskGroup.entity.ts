@@ -3,7 +3,6 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -15,7 +14,7 @@ interface IConstructorTaskGroup {
   name: string;
   description: string;
   users: User[];
-  isPrivate?: boolean;
+  isDefault?: boolean;
 }
 
 @Entity("task_groups")
@@ -24,11 +23,11 @@ export class TaskGroup {
     name,
     description,
     users,
-    isPrivate = false,
+    isDefault = false,
   }: IConstructorTaskGroup) {
     this.name = name;
     this.description = description;
-    this.isPrivate = isPrivate;
+    this.isDefault = isDefault;
     this.users = users;
   }
 
@@ -41,8 +40,8 @@ export class TaskGroup {
   @Column()
   description: string;
 
-  @Column({ name: "is_private" })
-  isPrivate: boolean;
+  @Column({ name: "is_default" })
+  isDefault: boolean;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;
@@ -52,10 +51,5 @@ export class TaskGroup {
   tasks?: Task[];
 
   @ManyToMany(() => User, (user) => user.taskGroups, { cascade: true })
-  @JoinTable({
-    name: "users_task_groups",
-    joinColumn: { name: "task_group_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "user_id", referencedColumnName: "id" },
-  })
   users!: User[];
 }

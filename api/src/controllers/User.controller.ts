@@ -22,7 +22,7 @@ export const UserController = {
           name: "My tasks",
           description: "My personal group of tasks",
           users: [userResult],
-          isPrivate: true,
+          isDefault: true,
         });
 
       res.status(201).send({ user: userResult, taskGroup: taskGroupResult });
