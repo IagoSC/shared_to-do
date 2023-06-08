@@ -13,7 +13,7 @@ export class CreateTaskService {
 
   async execute({ title, description, groupId }: CreateTaskDTO): Promise<Task> {
     const task = this.taskRepository.create({ title, description, groupId });
-    const result = await this.taskRepository.insert(task);
+    await this.taskRepository.insert(task);
     return task;
   }
 }

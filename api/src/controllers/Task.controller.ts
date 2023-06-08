@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../database/entities/Task.entity";
 import { dataSource } from "../database";
-import { GetAllTasksService } from "../services/GetAllTasksService";
-import { CreateTaskService } from "../services/CreateTaskService";
-import { DeleteTaskService } from "../services/DeleteTaskService";
-import { UpdateTaskService } from "../services/UpdateTaskService";
+import { GetAllTasksService } from "../services/Task/GetAllTasks";
+import { CreateTaskService } from "../services/Task/CreateTask";
+import { DeleteTaskService } from "../services/Task/DeleteTask";
+import { UpdateTaskService } from "../services/Task/UpdateTask";
+import { User } from "../database/entities/User.entity";
+import { GetUserDefaultGroupService } from "../services/User/GetUserDefaultGroupService";
 
 const taskRepository = dataSource.getRepository(Task);
+const userRepository = dataSource.getRepository(User);
 
 export const TaskController = {
   getAll: async (_req: Request, res: Response, next: NextFunction) => {
@@ -19,10 +22,19 @@ export const TaskController = {
   },
 
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const { task } = req.body;
+    const { task, userId } = req.body;
     try {
-      const tasks = await new CreateTaskService(taskRepository).execute(task);
-      res.status(201).send(tasks);
+      if (!task.groupId) {
+        const { id: defaultTaskGroupId } = await new GetUserDefaultGroupService(
+          userRepository
+        ).execute({ userId });
+
+        task.groupId = defaultTaskGroupId;
+      }
+      const taskResult = await new CreateTaskService(taskRepository).execute(
+        task
+      );
+      res.status(201).send(taskResult);
     } catch (err) {
       next(err);
     }

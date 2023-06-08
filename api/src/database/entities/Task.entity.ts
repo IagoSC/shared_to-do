@@ -4,7 +4,6 @@ import {
   Entity,
   JoinColumn,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TaskGroup } from "./TaskGroup.entity";
