@@ -1,5 +1,5 @@
 import { Repository, UpdateResult } from "typeorm";
-import { Task } from "../database/entities/Task.entity";
+import { Task } from "../../database/entities/Task.entity";
 
 export interface UpdateTaskDTO {
   id: string;

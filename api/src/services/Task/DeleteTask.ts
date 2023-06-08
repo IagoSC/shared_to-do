@@ -1,5 +1,5 @@
 import { DeleteResult, Repository } from "typeorm";
-import { Task } from "../database/entities/Task.entity";
+import { Task } from "../../database/entities/Task.entity";
 
 export interface DeleteTaskDTO {
   id: string;
