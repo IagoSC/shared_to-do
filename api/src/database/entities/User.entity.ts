@@ -27,7 +27,6 @@ export class User {
   @CreateDateColumn()
   created_at!: Date;
 
-  @ManyToMany(() => TaskGroup)
-  @JoinColumn()
+  @ManyToMany(() => TaskGroup, (taskGroup) => taskGroup.users)
   taskGroups?: TaskGroup[];
 }

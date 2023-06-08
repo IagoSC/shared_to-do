@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -50,7 +51,11 @@ export class TaskGroup {
   @JoinColumn()
   tasks?: Task[];
 
-  @ManyToMany(() => User)
-  @JoinColumn()
+  @ManyToMany(() => User, (user) => user.taskGroups, { cascade: true })
+  @JoinTable({
+    name: "users_task_groups",
+    joinColumn: { name: "task_group_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "user_id", referencedColumnName: "id" },
+  })
   users!: User[];
 }

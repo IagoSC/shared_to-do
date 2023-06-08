@@ -17,6 +17,8 @@ A college project to exercise development and deployment of a real application
 - [x] Create first table (Tasks)
 - [x] Move logic to DB
 - [] Change getAll to getMy tasks
-- [] Create Users table
+- [x] Create Users table
+- [] Create default TaskGroup on User creation
+- [] Handle erros deleting created values
 - [] Create authorization logic
 - [] Create authentication logic
