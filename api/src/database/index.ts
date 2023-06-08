@@ -11,6 +11,8 @@ const dataSource = new DataSource({
   password: config.dbPassword,
   entities: ["src/database/entities/*.ts"],
   migrations: ["src/database/migrations/*.ts"],
+  // This is necessary because typeOrm tries to use the entity constructor without params
+  entitySkipConstructor: true,
 });
 
 dataSource

@@ -13,15 +13,22 @@ import { User } from "./User.entity";
 interface IConstructorTaskGroup {
   name: string;
   description: string;
+  users: User[];
   isPrivate?: boolean;
 }
 
 @Entity("task_groups")
 export class TaskGroup {
-  constructor({ name, description, isPrivate = false }: IConstructorTaskGroup) {
+  constructor({
+    name,
+    description,
+    users,
+    isPrivate = false,
+  }: IConstructorTaskGroup) {
     this.name = name;
     this.description = description;
     this.isPrivate = isPrivate;
+    this.users = users;
   }
 
   @PrimaryGeneratedColumn("uuid")
@@ -33,11 +40,11 @@ export class TaskGroup {
   @Column()
   description: string;
 
-  @Column("is_private")
+  @Column({ name: "is_private" })
   isPrivate: boolean;
 
-  @CreateDateColumn()
-  created_at!: Date;
+  @CreateDateColumn({ name: "created_at" })
+  createdAt!: Date;
 
   @OneToMany(() => Task, (task) => task.group)
   @JoinColumn()

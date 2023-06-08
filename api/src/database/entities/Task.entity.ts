@@ -29,7 +29,7 @@ export class Task {
   @CreateDateColumn()
   created_at!: Date;
 
-  @Column("group_id")
+  @Column({ name: "group_id", type: "uuid" })
   groupId!: string;
 
   @OneToMany(() => TaskGroup, (taskGroup) => taskGroup.tasks)
