@@ -13,22 +13,15 @@ import { User } from "./User.entity";
 interface IConstructorGroup {
   name: string;
   description: string;
-  users: User[];
   isDefault?: boolean;
 }
 
 @Entity("groups")
 export class Group {
-  constructor({
-    name,
-    description,
-    users,
-    isDefault = false,
-  }: IConstructorGroup) {
+  constructor({ name, description, isDefault = false }: IConstructorGroup) {
     this.name = name;
     this.description = description;
     this.isDefault = isDefault;
-    this.users = users;
   }
 
   @PrimaryGeneratedColumn("uuid")

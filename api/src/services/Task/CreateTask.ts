@@ -4,8 +4,7 @@ import { Task } from "../../database/entities/Task.entity";
 export interface CreateTaskDTO {
   title: string;
   description: string;
-  userId?: string;
-  groupId?: string;
+  groupId: string;
 }
 
 export class CreateTaskService {

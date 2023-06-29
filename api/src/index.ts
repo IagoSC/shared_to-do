@@ -3,6 +3,7 @@ import { TaskRouter } from "./routes/task.routes";
 import { AppError } from "./utils/appError";
 import { config } from "./config";
 import { UserRouter } from "./routes/user.routes";
+import { GroupRouter } from "./routes/group.routes";
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.get("/test", (_req: Request, res: Response) => {
 
 app.use("/task", TaskRouter);
 app.use("/user", UserRouter);
+app.use("/group", GroupRouter);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   let statusCode = 500;
