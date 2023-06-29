@@ -6,7 +6,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TaskGroup } from "./TaskGroup.entity";
+import { Group } from "./Group.entity";
 
 @Entity("users")
 export class User {
@@ -27,11 +27,11 @@ export class User {
   @CreateDateColumn()
   created_at!: Date;
 
-  @ManyToMany(() => TaskGroup, (taskGroup) => taskGroup.users)
+  @ManyToMany(() => Group, (group) => group.users)
   @JoinTable({
-    name: "users_task_groups",
-    inverseJoinColumn: { name: "task_group_id", referencedColumnName: "id" },
+    name: "users_groups",
+    inverseJoinColumn: { name: "group_id", referencedColumnName: "id" },
     joinColumn: { name: "user_id", referencedColumnName: "id" },
   })
-  taskGroups?: TaskGroup[];
+  groups?: Group[];
 }

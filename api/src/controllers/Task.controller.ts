@@ -25,11 +25,11 @@ export const TaskController = {
     const { task, userId } = req.body;
     try {
       if (!task.groupId) {
-        const { id: defaultTaskGroupId } = await new GetUserDefaultGroupService(
+        const { id: defaultGroupId } = await new GetUserDefaultGroupService(
           userRepository
         ).execute({ userId });
 
-        task.groupId = defaultTaskGroupId;
+        task.groupId = defaultGroupId;
       }
       const taskResult = await new CreateTaskService(taskRepository).execute(
         task

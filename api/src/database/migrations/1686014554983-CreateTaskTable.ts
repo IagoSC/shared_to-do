@@ -9,9 +9,9 @@ export class CreateTaskTable1686014554983 implements MigrationInterface {
             "description" character varying NOT NULL,
             "group_id" uuid NOT NULL,
             "created_at" TIMESTAMP NOT NULL DEFAULT now(),
-            CONSTRAINT "task_groups_fk_tasks" 
+            CONSTRAINT "groups_fk_tasks" 
               FOREIGN KEY ("group_id")
-                REFERENCES task_groups ("id"),
+                REFERENCES groups ("id"),
             CONSTRAINT "tasks_pk" PRIMARY KEY ("id")
         )`);
   }

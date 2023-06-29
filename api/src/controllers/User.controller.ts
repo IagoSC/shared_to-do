@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../database/entities/User.entity";
 import { dataSource } from "../database";
 import { CreateUserService } from "../services/User/CreateUser";
-import { TaskGroup } from "../database/entities/TaskGroup.entity";
-import { CreateTaskGroupService } from "../services/TaskGroup/CreateTaskGroup";
+import { Group } from "../database/entities/Group.entity";
+import { CreateGroupService } from "../services/Group/CreateGroup";
 
 const userRepository = dataSource.getRepository(User);
-const taskGroupRepository = dataSource.getRepository(TaskGroup);
+const groupRepository = dataSource.getRepository(Group);
 
 export const UserController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -16,8 +16,8 @@ export const UserController = {
           user
         );
 
-        const taskGroupResult = await new CreateTaskGroupService(
-          taskGroupRepository
+        const groupResult = await new CreateGroupService(
+          groupRepository
         ).execute({
           name: "My tasks",
           description: "My personal group of tasks",
@@ -25,7 +25,7 @@ export const UserController = {
           isDefault: true,
         });
 
-      res.status(201).send({ user: userResult, taskGroup: taskGroupResult });
+        res.status(201).send({ user: userResult, group: groupResult });
     } catch (err) {
       next(err);
     }

@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TaskGroup } from "./TaskGroup.entity";
+import { Group } from "./Group.entity";
 
 @Entity("tasks")
 export class Task {
@@ -31,7 +31,7 @@ export class Task {
   @Column({ name: "group_id", type: "uuid" })
   groupId!: string;
 
-  @OneToMany(() => TaskGroup, (taskGroup) => taskGroup.tasks)
+  @OneToMany(() => Group, (group) => group.tasks)
   @JoinColumn()
-  group!: TaskGroup;
+  group!: Group;
 }

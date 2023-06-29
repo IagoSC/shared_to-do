@@ -10,21 +10,21 @@ import {
 import { Task } from "./Task.entity";
 import { User } from "./User.entity";
 
-interface IConstructorTaskGroup {
+interface IConstructorGroup {
   name: string;
   description: string;
   users: User[];
   isDefault?: boolean;
 }
 
-@Entity("task_groups")
-export class TaskGroup {
+@Entity("groups")
+export class Group {
   constructor({
     name,
     description,
     users,
     isDefault = false,
-  }: IConstructorTaskGroup) {
+  }: IConstructorGroup) {
     this.name = name;
     this.description = description;
     this.isDefault = isDefault;
@@ -50,6 +50,6 @@ export class TaskGroup {
   @JoinColumn()
   tasks?: Task[];
 
-  @ManyToMany(() => User, (user) => user.taskGroups, { cascade: true })
+  @ManyToMany(() => User, (user) => user.groups, { cascade: true })
   users!: User[];
 }
