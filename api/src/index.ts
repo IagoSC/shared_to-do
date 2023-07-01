@@ -13,9 +13,9 @@ app.get("/test", (_req: Request, res: Response) => {
   return res.status(200).send("Olá mundo");
 });
 
-app.use("/task", TaskRouter);
-app.use("/user", UserRouter);
-app.use("/group", GroupRouter);
+app.use("/tasks", TaskRouter);
+app.use("/users", UserRouter);
+app.use("/groups", GroupRouter);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   let statusCode = 500;
