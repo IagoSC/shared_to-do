@@ -2,8 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Group } from "./Group.entity";
@@ -31,7 +30,6 @@ export class Task {
   @Column({ name: "group_id", type: "uuid" })
   groupId!: string;
 
-  @OneToMany(() => Group, (group) => group.tasks)
-  @JoinColumn()
+  @ManyToOne(() => Group, (group) => group.tasks)
   group!: Group;
 }
