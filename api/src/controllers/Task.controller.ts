@@ -12,9 +12,12 @@ const taskRepository = dataSource.getRepository(Task);
 const userRepository = dataSource.getRepository(User);
 
 export const TaskController = {
-  getAll: async (_req: Request, res: Response, next: NextFunction) => {
+  getById: async (req: Request, res: Response, next: NextFunction) => {
+    const { taskId } = req.params;
     try {
-      const tasks = await new GetAllTasksService(taskRepository).execute();
+      const tasks = await new GetAllTasksService(taskRepository).execute(
+        taskId
+      );
       res.status(200).send(tasks);
     } catch (err) {
       next(err);
