@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../database/entities/Task.entity";
 import { dataSource } from "../database";
-import { GetAllTasksService } from "../services/Task/GetAllTasks";
+import { GetTaskByIdService } from "../services/Task/GetTaskById";
 import { CreateTaskService } from "../services/Task/CreateTask";
 import { DeleteTaskService } from "../services/Task/DeleteTask";
 import { UpdateTaskService } from "../services/Task/UpdateTask";
@@ -15,7 +15,7 @@ export const TaskController = {
   getById: async (req: Request, res: Response, next: NextFunction) => {
     const { taskId } = req.params;
     try {
-      const tasks = await new GetAllTasksService(taskRepository).execute(
+      const tasks = await new GetTaskByIdService(taskRepository).execute(
         taskId
       );
       res.status(200).send(tasks);
@@ -25,12 +25,14 @@ export const TaskController = {
   },
 
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const { task, userId } = req.body;
+    const { authorization: userId } = req.headers;
+
+    const { task } = req.body;
     try {
       if (!task.groupId) {
         const { id: defaultGroupId } = await new GetUserDefaultGroupService(
           userRepository
-        ).execute({ userId });
+        ).execute({ userId: userId as string });
 
         task.groupId = defaultGroupId;
       }

@@ -1,6 +1,7 @@
 import { Repository, In } from "typeorm";
 import { Group } from "../../database/entities/Group.entity";
 import { UserGroup } from "../../database/entities/UserGroup.entity";
+import { AppError } from "../../utils/appError";
 
 export interface GetMyGroupsDTO {
   userId: string;
@@ -13,6 +14,10 @@ export class GetMyGroupsService {
   ) {}
 
   async execute({ userId }: GetMyGroupsDTO): Promise<Group[]> {
+    if (!userId) {
+      throw new AppError("No user", 401);
+    }
+
     const userGroups = await this.userGroupRepository.findBy({ userId });
 
     return await this.groupRepository

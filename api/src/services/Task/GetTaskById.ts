@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { Task } from "../../database/entities/Task.entity";
 
-export class GetAllTasksService {
+export class GetTaskByIdService {
   constructor(private taskRepository: Repository<Task>) {}
 
   async execute(taskId: string): Promise<Task | null> {
