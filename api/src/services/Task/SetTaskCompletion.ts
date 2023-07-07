@@ -1,23 +1,22 @@
 import { Repository, UpdateResult } from "typeorm";
 import { Task } from "../../database/entities/Task.entity";
 
-export interface UpdateTaskDTO {
+export interface SetTaskCompletionDTO {
   id: string;
-  title?: string;
-  description?: string;
+  isFinished: boolean;
 }
 
-export class UpdateTaskService {
+export class SetTaskCompletionService {
   constructor(private taskRepository: Repository<Task>) {}
 
   async execute({
     id,
-    title,
-    description,
-  }: UpdateTaskDTO): Promise<UpdateResult> {
+    isFinished,
+  }: SetTaskCompletionDTO): Promise<UpdateResult> {
+    const finishedAt = isFinished ? new Date().toDateString() : null;
     const task = await this.taskRepository.update(
       { id },
-      { title, description }
+      { isFinished, finishedAt: finishedAt ?? undefined }
     );
     return task;
   }

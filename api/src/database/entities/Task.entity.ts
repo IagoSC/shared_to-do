@@ -27,6 +27,12 @@ export class Task {
   @CreateDateColumn()
   created_at!: Date;
 
+  @Column({ name: "is_finished", type: "boolean" })
+  isFinished!: boolean;
+
+  @Column({ name: "finished_at", type: "date" })
+  finishedAt!: Date;
+
   @Column({ name: "group_id", type: "uuid" })
   groupId!: string;
 

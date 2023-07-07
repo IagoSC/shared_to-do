@@ -7,6 +7,7 @@ import { DeleteTaskService } from "../services/Task/DeleteTask";
 import { UpdateTaskService } from "../services/Task/UpdateTask";
 import { User } from "../database/entities/User.entity";
 import { GetUserDefaultGroupService } from "../services/User/GetUserDefaultGroupService";
+import { SetTaskCompletionService } from "../services/Task/SetTaskCompletion";
 
 const taskRepository = dataSource.getRepository(Task);
 const userRepository = dataSource.getRepository(User);
@@ -64,6 +65,23 @@ export const TaskController = {
         id,
         ...task,
       });
+      res.status(200).send(result);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  setCompletion: async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const { isFinished } = req.body;
+
+    try {
+      const result = await new SetTaskCompletionService(taskRepository).execute(
+        {
+          id,
+          isFinished,
+        }
+      );
       res.status(200).send(result);
     } catch (err) {
       next(err);
