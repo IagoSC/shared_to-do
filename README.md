@@ -9,16 +9,16 @@ A college project to exercise development and deployment of a real application
 - [x] Expose port from container 
 - [x] Create container for DB
 - [x] Make files editable from outside of container (--user 1000:1000)
-- [] Make the same as above with docker-compose
-- [] Research on security of above
+- [ ] Make the same as above with docker-compose
+- [ ] Research on security of above
 - [x] Set run dev command
 - [x] Install orm
-- [] Set typeorm script to use database.env
+- [ ] Set typeorm script to use database.env
 - [x] Create first table (Tasks)
 - [x] Move logic to DB
-- [] Change getAll to getMy tasks
+- [ ] Change getAll to getMy tasks
 - [x] Create Users table
-- [] Create default TaskGroup on User creation
-- [] Handle erros deleting created values
-- [] Create authorization logic
-- [] Create authentication logic
+- [ ] Create default TaskGroup on User creation
+- [ ] Handle erros deleting created values
+- [ ] Create authorization logic
+- [ ] Create authentication logic
