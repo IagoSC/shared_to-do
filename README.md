@@ -16,9 +16,9 @@ A college project to exercise development and deployment of a real application
 - [] Set typeorm script to use database.env
 - [x] Create first table (Tasks)
 - [x] Move logic to DB
-- [] Change getAll to getMy tasks
+- [x] Change getAll to getMy tasks
 - [x] Create Users table
-- [] Create default TaskGroup on User creation
+- [x] Create default TaskGroup on User creation
 - [] Handle erros deleting created values
-- [] Create authorization logic
+- [x] Create authorization logic
 - [] Create authentication logic

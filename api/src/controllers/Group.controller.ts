@@ -7,6 +7,7 @@ import { GetMyGroupsService } from "../services/Group/GetMyGroups";
 import { User } from "../database/entities/User.entity";
 import { FindUsersByEmailService } from "../services/User/FindUsersByEmailService";
 import { DeleteGroupService } from "../services/Group/DeleteGroupService";
+import { UpdateGroupService } from "../services/Group/UpdateGroupService";
 
 const groupRepository = dataSource.getRepository(Group);
 const userGroupRepository = dataSource.getRepository(UserGroup);
@@ -22,8 +23,6 @@ export const GroupController = {
       ).execute({
         users,
       });
-
-      console.log(selectedUsers);
 
       const groupResult = await new CreateGroupService(
         groupRepository,
@@ -54,6 +53,32 @@ export const GroupController = {
       next(err);
     }
   },
+  update: async (req: Request, res: Response, next: NextFunction) => {
+    const { authorization: userId } = req.headers;
+    const { group, users } = req.body;
+    const { groupId } = req.params;
+
+    try {
+      const selectedUsers = await new FindUsersByEmailService(
+        userRepository
+      ).execute({
+        users,
+      });
+
+      await new UpdateGroupService(
+        groupRepository,
+        userGroupRepository
+      ).execute({
+        groupId,
+        name: group.name,
+        description: group.description,
+        usersIds: [userId as string, ...selectedUsers.map((el) => el.id)],
+      });
+      return res.status(200).send({ group });
+    } catch (err) {
+      next(err);
+    }
+  },
   getMyGroups: async (req: Request, res: Response, next: NextFunction) => {
     const { authorization: userId } = req.headers;
 
@@ -64,6 +89,8 @@ export const GroupController = {
       ).execute({
         userId: userId as string,
       });
+
+      console.log(myGroups);
       return res.status(200).send({ groups: myGroups });
     } catch (err) {
       next(err);

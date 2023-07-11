@@ -35,14 +35,18 @@ export const UserController = {
       next(err);
     }
   },
+
   signIn: async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
     try {
-      const user = await new FindUsersByEmailService(userRepository).execute({
+      const [user] = await new FindUsersByEmailService(userRepository).execute({
         users: [email],
       });
-      if (!user || !user.length) throw new AppError("User not found", 404);
-      res.status(200).send({ user: user[0] });
+      if (!user) throw new AppError("User not found", 404);
+
+      const { id: token } = user;
+
+      res.status(200).send({ user, token });
     } catch (err) {
       next(err);
     }
